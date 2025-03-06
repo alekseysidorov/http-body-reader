@@ -1,6 +1,6 @@
 [package]
 name = "http-body-reader"
-version = "0.1.2"
+version = "0.1.0"
 rust-version = "1.81"
 edition = "2021"
 
@@ -15,18 +15,31 @@ bytes = "1.10"
 http = "1.2.0"
 http-body = "1.0"
 http-body-util = "0.1"
+include-utils = "0.2"
 serde = { version = "1", features = ["derive"] }
 serde_json = { version = "1", optional = true }
 serde_urlencoded = { version = "0.7.1", optional = true }
 thiserror = "2.0"
 
 [dev-dependencies]
+anyhow = "1.0"
+reqwest = "0.12.12"
+tokio = { version = "1.43", features = ["rt-multi-thread", "macros"] }
+tower-reqwest = "0.4.1"
+tower-service = "0.3.3"
 
 [features]
 default = ["json", "form"]
 json = ["dep:serde_json"]
 form = ["dep:serde_urlencoded"]
 
+[[example]]
+name = "read_json"
+required-features = ["json"]
+
+[[example]]
+name = "read_form"
+required-features = ["form"]
 
 [lints.rust]
 missing_debug_implementations = "warn"
