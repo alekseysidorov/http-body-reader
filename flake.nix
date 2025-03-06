@@ -119,7 +119,7 @@
         ];
       };
 
-      # Nightly compilator to run miri tests
+      # Nightly compilator to format code with nice features.
       devShells.nightly = pkgs.mkShell {
         nativeBuildInputs = with pkgs; [
           rustToolchains.nightly
