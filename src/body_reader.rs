@@ -27,25 +27,6 @@ pub enum BodyReaderError<E, D> {
 }
 
 impl<B> BodyReader<B> {
-    /// Maps the body content using the provided function.
-    ///
-    /// # Example
-    ///
-    /// ```
-    #[doc = include_str!("../examples/map_body.rs")]
-    /// ```
-    pub fn map<F, T>(self, f: F) -> BodyReader<T>
-    where
-        F: FnOnce(B) -> T,
-        T: Body,
-        T::Data: Buf,
-    {
-        BodyReader {
-            body: f(self.body),
-            headers: self.headers,
-        }
-    }
-
     /// Reads the full response body as [`Bytes`].
     ///
     /// # Example
@@ -119,6 +100,25 @@ impl<B> BodyReader<B> {
     {
         let bytes = self.bytes().await.map_err(BodyReaderError::Read)?;
         serde_urlencoded::from_bytes(&bytes).map_err(BodyReaderError::Decode)
+    }
+
+    /// Maps the body content using the provided function.
+    ///
+    /// # Example
+    ///
+    /// ```
+    #[doc = include_str!("../examples/map_body.rs")]
+    /// ```
+    pub fn map<F, T>(self, f: F) -> BodyReader<T>
+    where
+        F: FnOnce(B) -> T,
+        T: Body,
+        T::Data: Buf,
+    {
+        BodyReader {
+            body: f(self.body),
+            headers: self.headers,
+        }
     }
 }
 

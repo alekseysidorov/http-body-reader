@@ -2,7 +2,9 @@
 
 <!-- ANCHOR: description -->
 
-TODO
+A convenient way to read the http body. This library provides an easy way to
+read the HTTP body in the most common formats such as UTF-8 encoded text, JSON,
+form data.
 
 # Usage
 
