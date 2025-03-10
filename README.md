@@ -1,5 +1,10 @@
 # http-body-reader
 
+[![tests](https://github.com/alekseysidorov/http-body-reader/actions/workflows/ci.yml/badge.svg)](https://github.com/alekseysidorov/http-body-reader/actions/workflows/ci.yml)
+[![crates.io](https://img.shields.io/crates/v/http-body-reader.svg)](https://crates.io/crates/http-body-reader)
+[![Documentation](https://docs.rs/http-body-reader/badge.svg)](https://docs.rs/http-body-reader)
+[![MIT/Apache-2 licensed](https://img.shields.io/crates/l/http-body-reader)](./LICENSE)
+
 <!-- ANCHOR: description -->
 
 This library provides an easy way to read the HTTP body in the most common

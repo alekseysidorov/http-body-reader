@@ -8,4 +8,8 @@ and this project adheres to
 
 ## [Unreleased]
 
+- Improvements in documentation and readme.
+
+## [0.1.0] - 2025.03.09
+
 - Initial release
