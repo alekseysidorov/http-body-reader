@@ -50,6 +50,10 @@ impl<B> BodyReader<B> {
     /// The method will only attempt to decode the response as `UTF-8`, regardless of the
     /// `Content-Type` header.
     ///
+    /// # Errors
+    ///
+    /// This method fails if the response body cannot be decoded as UTF-8.
+    ///
     /// # Example
     ///
     /// ```
@@ -65,6 +69,11 @@ impl<B> BodyReader<B> {
     }
 
     /// Deserializes the response body as JSON.
+    ///
+    /// # Errors
+    ///
+    /// This method fails whenever the response body is not valid JSON
+    /// or it cannot be properly deserialized to the target type `T`.
     ///
     /// # Examples
     ///
@@ -84,6 +93,11 @@ impl<B> BodyReader<B> {
     }
 
     /// Deserializes the response body as form data.
+    ///
+    /// # Errors
+    ///
+    /// This method fails whenever the response body is not valid form data
+    /// or it cannot be properly deserialized to the target type `T`.
     ///
     /// # Examples
     ///
