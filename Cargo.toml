@@ -1,6 +1,6 @@
 [package]
 name = "http-body-reader"
-version = "0.1.0"
+version = "0.1.1"
 rust-version = "1.81"
 edition = "2021"
 

@@ -1,5 +1,10 @@
 # http-body-reader
 
+[![tests](https://github.com/alekseysidorov/http-body-reader/actions/workflows/ci.yml/badge.svg)](https://github.com/alekseysidorov/http-body-reader/actions/workflows/ci.yml)
+[![crates.io](https://img.shields.io/crates/v/http-body-reader.svg)](https://crates.io/crates/http-body-reader)
+[![Documentation](https://docs.rs/http-body-reader/badge.svg)](https://docs.rs/http-body-reader)
+[![MIT/Apache-2 licensed](https://img.shields.io/crates/l/http-body-reader)](./LICENSE)
+
 <!-- ANCHOR: description -->
 
 This library provides an easy way to read the HTTP body in the most common
@@ -35,3 +40,13 @@ async fn main() -> anyhow::Result<()> {
 <!-- ANCHOR_END: example -->
 
 <!-- ANCHOR_END: description -->
+
+## License
+
+This project is licensed under the [MIT license](LICENSE).
+
+### Contribution
+
+Unless you explicitly state otherwise, any contribution intentionally submitted
+for inclusion in `http-body-reader` by you, shall be licensed as MIT, without
+any additional terms or conditions.
