@@ -37,6 +37,8 @@ where
     }
 }
 
+// `thiserror` crate implements the `std::error::Error::source` method which breaks the boxing of the error.
+// For use cases of this crate the boxing of the errors is more important that the `source` method.
 impl<E, D> std::error::Error for BodyReaderError<E, D>
 where
     E: std::fmt::Debug + std::fmt::Display,
