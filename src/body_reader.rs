@@ -4,7 +4,6 @@ use bytes::{Buf, Bytes};
 use http::HeaderMap;
 use http_body::Body;
 use http_body_util::BodyExt;
-use thiserror::Error;
 
 /// Convenient wrapper for reading [`Body`] content from [`http::Response`].
 ///
@@ -17,13 +16,32 @@ pub struct BodyReader<B> {
 }
 
 /// Read body errors.
-#[derive(Debug, Error)]
-#[error(transparent)]
+#[derive(Debug)]
 pub enum BodyReaderError<E, D> {
     /// An error occurred while reading the body.
     Read(E),
     /// An error occurred while decoding the body content.
     Decode(D),
+}
+
+impl<E, D> std::fmt::Display for BodyReaderError<E, D>
+where
+    E: std::fmt::Display,
+    D: std::fmt::Display,
+{
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            BodyReaderError::Read(err) => err.fmt(f),
+            BodyReaderError::Decode(err) => err.fmt(f),
+        }
+    }
+}
+
+impl<E, D> std::error::Error for BodyReaderError<E, D>
+where
+    E: std::fmt::Debug + std::fmt::Display,
+    D: std::fmt::Debug + std::fmt::Display,
+{
 }
 
 impl<B> BodyReader<B> {
@@ -143,5 +161,30 @@ impl<B> From<http::Response<B>> for BodyReader<B> {
             body,
             headers: parts.headers,
         }
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::BodyReaderError;
+
+    type BoxError = Box<dyn std::error::Error + Send + Sync + 'static>;
+
+    // Check that the error can be converted into a boxed error.
+    #[test]
+    fn test_body_reader_error_into_boxed() {
+        // Read error
+        let read_error = std::io::Error::new(std::io::ErrorKind::Other, "read error");
+        let error: BodyReaderError<std::io::Error, BoxError> = BodyReaderError::Read(read_error);
+        let boxed_error: BoxError = Box::new(error);
+
+        assert_eq!(boxed_error.to_string(), "read error");
+        // Decode error
+        let decode_error = std::io::Error::new(std::io::ErrorKind::Other, "decode error");
+        let error: BodyReaderError<BoxError, std::io::Error> =
+            BodyReaderError::Decode(decode_error);
+        let boxed_error: BoxError = Box::new(error);
+
+        assert_eq!(boxed_error.to_string(), "decode error");
     }
 }
