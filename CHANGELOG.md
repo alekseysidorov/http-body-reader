@@ -8,6 +8,12 @@ and this project adheres to
 
 ## [Unreleased]
 
+## [0.1.2] - 2025.03.11
+
+- Implement `std::io::Error` for `BodyReaderError` manually, because `thiserror`
+  crate does implement `std::error::Error::source` method, which breaks the
+  error boxing.
+
 ## [0.1.1] - 2025.03.10
 
 - Improvements in documentation and readme.
